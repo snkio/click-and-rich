@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Click and Rich</title>
     <link rel="stylesheet" href="css/style.css" />
-    <script src="/js/main.js" defer></script>
+    <script src="js/main.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -15,6 +15,20 @@
       <div class="gameplay hidden" id="play">
         <p>Монеты: <span id="moneyCounter">0</span></p>
         <button id="coin">Монета</button>
+
+        <div id="shop">
+          <h2>Магазин улучшений</h2>
+          <div class="shop__list">
+            <ul>
+              <li class="shop__item">
+                <p class="shop__item-text">Прокачка клика (+1)</p>
+                <button class="shop__item-btn" id="btnUpgrade">
+                  Купить за <span id="clickUpgradeCost">15</span> монет
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </body>

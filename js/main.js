@@ -43,27 +43,64 @@ menu.addEventListener("click", (e) => {
       money: 0,
       clickPower: 1,
       autoclicker: 0,
+      clickPowerUpgrade: 15,
     };
 
     game.push(gameStats);
-    localStorage.setItem("gameProgress", JSON.stringify(game));
+    saveGame();
   } else if (btn.dataset.action === "continue") {
     menu.classList.add("hidden");
     play.classList.remove("hidden");
 
-    moneyCounter.textContent = game[0].money;
+    refreshUI(game[0]);
   } else if (btn.dataset.action === "author") {
     window.location.href = "https://github.com";
   }
 });
 
+// ======= GAME =======
 const moneyCounter = document.querySelector("#moneyCounter");
+const shop = document.querySelector("#shop");
 const coin = document.querySelector("#coin");
 
-coin.addEventListener("click", () => {
-  game[0].money += game[0].clickPower;
+const clickUpgradeCost = document.querySelector("#clickUpgradeCost");
 
-  moneyCounter.textContent = game[0].money;
+function refreshUI(data) {
+  moneyCounter.textContent = data.money;
+  clickUpgradeCost.textContent = data.clickPowerUpgrade;
+}
 
+function saveGame() {
   localStorage.setItem("gameProgress", JSON.stringify(game));
+}
+
+coin.addEventListener("click", () => {
+  const stats = game[0];
+  stats.money += stats.clickPower;
+
+  refreshUI(stats);
+
+  saveGame();
+});
+
+shop.addEventListener("click", (e) => {
+  let btnupg = e.target.closest(".shop__item-btn");
+  const stats = game[0];
+
+  if (!btnupg) return;
+
+  if (stats.money >= stats.clickPowerUpgrade) {
+    stats.money -= stats.clickPowerUpgrade;
+    stats.clickPower += 1;
+
+    stats.clickPowerUpgrade = Math.round(stats.clickPowerUpgrade * 1.5);
+
+    refreshUI(stats);
+
+    console.log(`Успешно! За клик теперь ${stats.clickPower}`);
+
+    saveGame();
+  }
+
+  console.log(btnupg);
 });
