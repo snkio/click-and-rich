@@ -1,6 +1,7 @@
 const menu = document.querySelector("#menu");
 const play = document.querySelector("#play"); // gameplay
 const getSaved = JSON.parse(localStorage.getItem("gameProgress"));
+let isGameStarted = false;
 const game = getSaved || [];
 
 if (game.length === 0) {
@@ -44,13 +45,16 @@ menu.addEventListener("click", (e) => {
       clickPower: 1,
       autoclicker: 0,
       clickPowerUpgrade: 15,
+      autoClickerUpgrade: 100,
     };
 
+    isGameStarted = true;
     game.push(gameStats);
     saveGame();
   } else if (btn.dataset.action === "continue") {
     menu.classList.add("hidden");
     play.classList.remove("hidden");
+    isGameStarted = true;
 
     refreshUI(game[0]);
   } else if (btn.dataset.action === "author") {
@@ -64,10 +68,24 @@ const shop = document.querySelector("#shop");
 const coin = document.querySelector("#coin");
 
 const clickUpgradeCost = document.querySelector("#clickUpgradeCost");
+const autoClickerUpgradeCost = document.querySelector(
+  "#autoClickerUpgradeCost",
+);
+
+setInterval(() => {
+  if (!isGameStarted) return;
+
+  const stats = game[0];
+  stats.money += stats.autoclicker;
+
+  refreshUI(stats);
+  saveGame();
+}, 1000);
 
 function refreshUI(data) {
   moneyCounter.textContent = data.money;
   clickUpgradeCost.textContent = data.clickPowerUpgrade;
+  autoClickerUpgradeCost.textContent = data.autoClickerUpgrade;
 }
 
 function saveGame() {
@@ -84,22 +102,44 @@ coin.addEventListener("click", () => {
 });
 
 shop.addEventListener("click", (e) => {
-  let btnupg = e.target.closest(".shop__item-btn");
   const stats = game[0];
+
+  let btnupg = e.target.closest(".shop__item-btn");
 
   if (!btnupg) return;
 
-  if (stats.money >= stats.clickPowerUpgrade) {
-    stats.money -= stats.clickPowerUpgrade;
-    stats.clickPower += 1;
+  const checkAction = btnupg.dataset.action;
 
-    stats.clickPowerUpgrade = Math.round(stats.clickPowerUpgrade * 1.5);
+  if (checkAction === "buy-click") {
+    if (stats.money >= stats.clickPowerUpgrade) {
+      stats.money -= stats.clickPowerUpgrade;
+      stats.clickPower += 1;
 
-    refreshUI(stats);
+      stats.clickPowerUpgrade = Math.round(stats.clickPowerUpgrade * 1.5);
 
-    console.log(`Успешно! За клик теперь ${stats.clickPower}`);
+      refreshUI(stats);
 
-    saveGame();
+      console.log(`Успешно! За клик теперь ${stats.clickPower}`);
+
+      saveGame();
+    } else {
+      console.log("Недостаточно средств");
+    }
+  } else if (checkAction === "buy-autoclick") {
+    if (stats.money >= stats.autoClickerUpgrade) {
+      stats.money -= stats.autoClickerUpgrade;
+      stats.autoclicker += 1;
+
+      stats.autoClickerUpgrade = Math.round(stats.autoClickerUpgrade * 2);
+
+      refreshUI(stats);
+
+      console.log(`Успешно! Автоклик теперь ${stats.autoclicker}`);
+
+      saveGame();
+    } else {
+      console.log("Недостаточно средств");
+    }
   }
 
   console.log(btnupg);

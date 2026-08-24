@@ -13,17 +13,34 @@
         <h1>Click and Rich</h1>
       </div>
       <div class="gameplay hidden" id="play">
-        <p>Монеты: <span id="moneyCounter">0</span></p>
+        <div>
+          <p>Монеты: <span id="moneyCounter">0</span></p>
+        </div>
         <button id="coin">Монета</button>
-
         <div id="shop">
           <h2>Магазин улучшений</h2>
           <div class="shop__list">
             <ul>
               <li class="shop__item">
                 <p class="shop__item-text">Прокачка клика (+1)</p>
-                <button class="shop__item-btn" id="btnUpgrade">
+                <button
+                  class="shop__item-btn"
+                  id="btnUpgrade"
+                  data-action="buy-click"
+                >
                   Купить за <span id="clickUpgradeCost">15</span> монет
+                </button>
+              </li>
+              <li class="shop__item">
+                <p class="shop__item-text">
+                  Прокачка автокликера (+1 монета/сек.)
+                </p>
+                <button
+                  class="shop__item-btn"
+                  id="btnUpgrade"
+                  data-action="buy-autoclick"
+                >
+                  Купить за <span id="autoClickerUpgradeCost">100</span> монет
                 </button>
               </li>
             </ul>
