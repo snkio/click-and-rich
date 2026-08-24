@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  max-width: calc((1000px) + (1rem) * 2);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.main__list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.main__elem {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  background: #f2c14e;
+  max-width: 200px;
+}
