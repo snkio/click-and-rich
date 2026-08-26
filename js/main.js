@@ -14,8 +14,20 @@ const game = getSaved || {
 };
 
 let shopItems = getSavedShop || [
-  { id: "buy-click", desc: "Прокачка клика (+1 мон/клик)", cost: 15, count: 0 },
-  { id: "buy-autoclick", desc: "Автокликер (+1 мон/сек)", cost: 100, count: 0 },
+  {
+    id: "buy-click",
+    desc: "Прокачка клика (+1 мон/клик)",
+    cost: 15,
+    power: 1,
+    count: 0,
+  },
+  {
+    id: "buy-autoclick",
+    desc: "Автокликер (+1 мон/сек)",
+    cost: 100,
+    power: 1,
+    count: 0,
+  },
 ];
 
 if (!getSaved) {
@@ -58,14 +70,16 @@ menu.addEventListener("click", (e) => {
     shopItems = [
       {
         id: "buy-click",
-        desc: "Прокачка клика (+1 мон/клик)",
+        desc: "Прокачка клика",
         cost: 15,
+        power: 1,
         count: 0,
       },
       {
         id: "buy-autoclick",
-        desc: "Автокликер (+1 мон/сек)",
+        desc: "Автокликер",
         cost: 100,
+        power: 1,
         count: 0,
       },
     ];
@@ -91,7 +105,6 @@ menu.addEventListener("click", (e) => {
 
 function refreshUI() {
   moneyCounter.textContent = game.money;
-
   const btn = document.querySelectorAll(".shop__item-btn");
 
   btn.forEach((elem) => {
@@ -116,9 +129,11 @@ function renderShop() {
   shop.innerHTML = "";
 
   shopItems.forEach((e) => {
+    const nextPower = Math.round(e.power * Math.pow(1.4, e.count));
+
     const shopTemplate = `
     <li class="shop__item">
-          <p class="shop__item-text">${e.desc} / ${e.count}</p>
+          <p class="shop__item-text">${e.desc} [Ур. ${e.count}] (Следующая сила: +${nextPower})</p>
           <button
             class="shop__item-btn"
             data-id="${e.id}"
@@ -156,22 +171,23 @@ shop.addEventListener("click", (e) => {
   const checkAction = btnupg.dataset.id;
   const checkedId = shopItems.find((item) => item.id === checkAction);
 
-  console.log(checkedId);
+  const gainedPower = Math.round(
+    checkedId.power * Math.pow(1.4, checkedId.count),
+  );
 
   if (game.money >= checkedId.cost) {
     game.money -= checkedId.cost;
 
-    checkedId.count += 1;
-
     if (checkedId.id === "buy-click") {
-      game.clickPower += 1;
+      game.clickPower += gainedPower;
     } else if (checkedId.id === "buy-autoclick") {
-      game.autoclicker += 1;
+      game.autoclicker += gainedPower;
     }
 
-    console.log("Приобретено");
-
+    checkedId.count += 1;
     checkedId.cost = Math.round(checkedId.cost * 1.5);
+
+    console.log("Приобретено");
 
     renderShop();
     refreshUI();
