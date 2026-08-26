@@ -1,10 +1,24 @@
+const moneyCounter = document.querySelector("#moneyCounter");
+const shop = document.querySelector("#shop");
+const coin = document.querySelector("#coin");
 const menu = document.querySelector("#menu");
 const play = document.querySelector("#play"); // gameplay
 const getSaved = JSON.parse(localStorage.getItem("gameProgress"));
+const getSavedShop = JSON.parse(localStorage.getItem("shopProgress"));
 let isGameStarted = false;
-const game = getSaved || [];
 
-if (game.length === 0) {
+const game = getSaved || {
+  money: 0,
+  clickPower: 1,
+  autoclicker: 0,
+};
+
+let shopItems = getSavedShop || [
+  { id: "buy-click", desc: "Прокачка клика (+1 мон/клик)", cost: 15, count: 0 },
+  { id: "buy-autoclick", desc: "Автокликер (+1 мон/сек)", cost: 100, count: 0 },
+];
+
+if (!getSaved) {
   const newGameTemplate = `
     <nav class="main__nav">
         <ul class="main__list">
@@ -34,113 +48,135 @@ menu.addEventListener("click", (e) => {
   if (!btn) return;
 
   if (btn.dataset.action === "new-game") {
-    console.log("Играем");
-    game.length = 0;
-
     menu.classList.add("hidden");
     play.classList.remove("hidden");
 
-    const gameStats = {
-      money: 0,
-      clickPower: 1,
-      autoclicker: 0,
-      clickPowerUpgrade: 15,
-      autoClickerUpgrade: 100,
-    };
+    game.money = 0;
+    game.clickPower = 1;
+    game.autoclicker = 0;
+
+    shopItems = [
+      {
+        id: "buy-click",
+        desc: "Прокачка клика (+1 мон/клик)",
+        cost: 15,
+        count: 0,
+      },
+      {
+        id: "buy-autoclick",
+        desc: "Автокликер (+1 мон/сек)",
+        cost: 100,
+        count: 0,
+      },
+    ];
 
     isGameStarted = true;
-    game.push(gameStats);
+
+    console.log(game);
+    renderShop();
     saveGame();
   } else if (btn.dataset.action === "continue") {
     menu.classList.add("hidden");
     play.classList.remove("hidden");
     isGameStarted = true;
 
-    refreshUI(game[0]);
+    renderShop();
+    refreshUI();
   } else if (btn.dataset.action === "author") {
     window.location.href = "https://github.com";
   }
 });
 
 // ======= GAME =======
-const moneyCounter = document.querySelector("#moneyCounter");
-const shop = document.querySelector("#shop");
-const coin = document.querySelector("#coin");
 
-const clickUpgradeCost = document.querySelector("#clickUpgradeCost");
-const autoClickerUpgradeCost = document.querySelector(
-  "#autoClickerUpgradeCost",
-);
+function refreshUI() {
+  moneyCounter.textContent = game.money;
 
-setInterval(() => {
-  if (!isGameStarted) return;
+  const btn = document.querySelectorAll(".shop__item-btn");
 
-  const stats = game[0];
-  stats.money += stats.autoclicker;
+  btn.forEach((elem) => {
+    const getDataId = elem.dataset.id;
+    const getItemCost = shopItems.find((item) => item.id === getDataId);
 
-  refreshUI(stats);
-  saveGame();
-}, 1000);
-
-function refreshUI(data) {
-  moneyCounter.textContent = data.money;
-  clickUpgradeCost.textContent = data.clickPowerUpgrade;
-  autoClickerUpgradeCost.textContent = data.autoClickerUpgrade;
+    if (getItemCost) {
+      const getSpan = elem.querySelector("span");
+      getSpan.textContent = getItemCost.cost;
+    }
+  });
 }
 
 function saveGame() {
   localStorage.setItem("gameProgress", JSON.stringify(game));
+  localStorage.setItem("shopProgress", JSON.stringify(shopItems));
 }
 
+// ====================
+
+function renderShop() {
+  shop.innerHTML = "";
+
+  shopItems.forEach((e) => {
+    const shopTemplate = `
+    <li class="shop__item">
+          <p class="shop__item-text">${e.desc} / ${e.count}</p>
+          <button
+            class="shop__item-btn"
+            data-id="${e.id}"
+          >
+            Купить за <span>${e.cost}</span> монет
+        </button>
+    </li>
+`;
+
+    shop.insertAdjacentHTML("beforeend", shopTemplate);
+  });
+}
+
+setInterval(() => {
+  if (!isGameStarted) return;
+
+  game.money += game.autoclicker;
+
+  refreshUI();
+  saveGame();
+}, 1000);
+
 coin.addEventListener("click", () => {
-  const stats = game[0];
-  stats.money += stats.clickPower;
+  game.money += game.clickPower;
 
-  refreshUI(stats);
-
+  refreshUI();
   saveGame();
 });
 
 shop.addEventListener("click", (e) => {
-  const stats = game[0];
-
   let btnupg = e.target.closest(".shop__item-btn");
 
   if (!btnupg) return;
 
-  const checkAction = btnupg.dataset.action;
+  const checkAction = btnupg.dataset.id;
+  const checkedId = shopItems.find((item) => item.id === checkAction);
 
-  if (checkAction === "buy-click") {
-    if (stats.money >= stats.clickPowerUpgrade) {
-      stats.money -= stats.clickPowerUpgrade;
-      stats.clickPower += 1;
+  console.log(checkedId);
 
-      stats.clickPowerUpgrade = Math.round(stats.clickPowerUpgrade * 1.5);
+  if (game.money >= checkedId.cost) {
+    game.money -= checkedId.cost;
 
-      refreshUI(stats);
+    checkedId.count += 1;
 
-      console.log(`Успешно! За клик теперь ${stats.clickPower}`);
-
-      saveGame();
-    } else {
-      console.log("Недостаточно средств");
+    if (checkedId.id === "buy-click") {
+      game.clickPower += 1;
+    } else if (checkedId.id === "buy-autoclick") {
+      game.autoclicker += 1;
     }
-  } else if (checkAction === "buy-autoclick") {
-    if (stats.money >= stats.autoClickerUpgrade) {
-      stats.money -= stats.autoClickerUpgrade;
-      stats.autoclicker += 1;
 
-      stats.autoClickerUpgrade = Math.round(stats.autoClickerUpgrade * 2);
+    console.log("Приобретено");
 
-      refreshUI(stats);
+    checkedId.cost = Math.round(checkedId.cost * 1.5);
 
-      console.log(`Успешно! Автоклик теперь ${stats.autoclicker}`);
-
-      saveGame();
-    } else {
-      console.log("Недостаточно средств");
-    }
+    renderShop();
+    refreshUI();
+    saveGame();
+  } else {
+    console.log("Недостаточно средств");
   }
-
-  console.log(btnupg);
 });
