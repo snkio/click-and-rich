@@ -1,4 +1,6 @@
 const moneyCounter = document.querySelector("#moneyCounter");
+const tapCounter = document.querySelector("#tapCounter");
+const persecCounter = document.querySelector("#persecCounter");
 const shop = document.querySelector("#shop");
 const coin = document.querySelector("#coin");
 const menu = document.querySelector("#menu");
@@ -32,24 +34,16 @@ let shopItems = getSavedShop || [
 
 if (!getSaved) {
   const newGameTemplate = `
-    <nav class="main__nav">
-        <ul class="main__list">
-            <li class="main__elem" data-action="new-game">Играть</li>
-            <li class="main__elem" data-action="author">Ссылка на автора</li>
-        <ul>
-    </nav>
+       <li class="main__elem" data-action="new-game">Играть</li>
+       <li class="main__elem" data-action="author">Ссылка на автора</li>
 `;
 
   menu.insertAdjacentHTML("beforeend", newGameTemplate);
 } else {
   const continueGameTemplate = `
-    <nav class="main__nav">
-        <ul class="main__list">
-            <li class="main__elem" data-action="continue">Продолжить игру</li>
-            <li class="main__elem" data-action="new-game">Начать игру заново</li>
-            <li class="main__elem" data-action="author">Ссылка на автора</li>
-        <ul>
-    </nav>
+        <li class="main__elem" data-action="continue">Продолжить игру</li>
+        <li class="main__elem" data-action="new-game">Начать игру заново</li>
+        <li class="main__elem" data-action="author">Ссылка на автора</li>
     `;
 
   menu.insertAdjacentHTML("beforeend", continueGameTemplate);
@@ -104,6 +98,8 @@ menu.addEventListener("click", (e) => {
 // ======= GAME =======
 
 function refreshUI() {
+  tapCounter.textContent = game.clickPower;
+  persecCounter.textContent = game.autoclicker;
   moneyCounter.textContent = game.money;
   const btn = document.querySelectorAll(".shop__item-btn");
 
@@ -133,9 +129,9 @@ function renderShop() {
 
     const shopTemplate = `
     <li class="shop__item">
-          <p class="shop__item-text">${e.desc} [Ур. ${e.count}] (Следующая сила: +${nextPower})</p>
+          <p class="shop__text">${e.desc} [Ур. ${e.count}] (Следующая сила: +${nextPower})</p>
           <button
-            class="shop__item-btn"
+            class="shop__button"
             data-id="${e.id}"
           >
             Купить за <span>${e.cost}</span> монет
@@ -164,7 +160,7 @@ coin.addEventListener("click", () => {
 });
 
 shop.addEventListener("click", (e) => {
-  let btnupg = e.target.closest(".shop__item-btn");
+  let btnupg = e.target.closest(".shop__button");
 
   if (!btnupg) return;
 
