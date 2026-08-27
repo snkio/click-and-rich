@@ -1,36 +1,18 @@
-const moneyCounter = document.querySelector("#moneyCounter");
-const tapCounter = document.querySelector("#tapCounter");
-const persecCounter = document.querySelector("#persecCounter");
+import {
+  saveGame,
+  game,
+  shopItems,
+  getSaved,
+  updateShopItems,
+} from "./state.js";
+import { refreshUI, renderShop } from "./render.js";
+
 const shop = document.querySelector("#shop");
 const coin = document.querySelector("#coin");
 const menu = document.querySelector("#menu");
 const play = document.querySelector("#play"); // gameplay
-const getSaved = JSON.parse(localStorage.getItem("gameProgress"));
-const getSavedShop = JSON.parse(localStorage.getItem("shopProgress"));
+
 let isGameStarted = false;
-
-const game = getSaved || {
-  money: 0,
-  clickPower: 1,
-  autoclicker: 0,
-};
-
-let shopItems = getSavedShop || [
-  {
-    id: "buy-click",
-    desc: "Прокачка клика (+1 мон/клик)",
-    cost: 15,
-    power: 1,
-    count: 0,
-  },
-  {
-    id: "buy-autoclick",
-    desc: "Автокликер (+1 мон/сек)",
-    cost: 100,
-    power: 1,
-    count: 0,
-  },
-];
 
 if (!getSaved) {
   const newGameTemplate = `
@@ -95,54 +77,6 @@ menu.addEventListener("click", (e) => {
   }
 });
 
-// ======= GAME =======
-
-function refreshUI() {
-  tapCounter.textContent = game.clickPower;
-  persecCounter.textContent = game.autoclicker;
-  moneyCounter.textContent = game.money;
-  const btn = document.querySelectorAll(".shop__item-btn");
-
-  btn.forEach((elem) => {
-    const getDataId = elem.dataset.id;
-    const getItemCost = shopItems.find((item) => item.id === getDataId);
-
-    if (getItemCost) {
-      const getSpan = elem.querySelector("span");
-      getSpan.textContent = getItemCost.cost;
-    }
-  });
-}
-
-function saveGame() {
-  localStorage.setItem("gameProgress", JSON.stringify(game));
-  localStorage.setItem("shopProgress", JSON.stringify(shopItems));
-}
-
-// ====================
-
-function renderShop() {
-  const shopHTML = shopItems
-    .map((e) => {
-      const nextPower = Math.round(e.power * Math.pow(1.4, e.count));
-
-      return `
-    <li class="shop__item">
-          <p class="shop__text">${e.desc} [Ур. ${e.count}] (Следующая сила: +${nextPower})</p>
-          <button
-            class="shop__button"
-            data-id="${e.id}"
-          >
-            Купить за <span>${e.cost}</span> монет
-        </button>
-    </li>
-`;
-    })
-    .join("");
-
-  shop.innerHTML = shopHTML;
-}
-
 setInterval(() => {
   if (!isGameStarted) return;
 
@@ -196,7 +130,7 @@ shop.addEventListener("click", (e) => {
     game.autoclicker += gainedPower;
   }
 
-  shopItems = newShop;
+  updateShopItems(newShop);
 
   renderShop();
   refreshUI();
