@@ -91,7 +91,7 @@ menu.addEventListener("click", (e) => {
     renderShop();
     refreshUI();
   } else if (btn.dataset.action === "author") {
-    window.location.href = "https://github.com";
+    window.location.href = "https://github.com/snkio";
   }
 });
 
@@ -122,12 +122,11 @@ function saveGame() {
 // ====================
 
 function renderShop() {
-  shop.innerHTML = "";
+  const shopHTML = shopItems
+    .map((e) => {
+      const nextPower = Math.round(e.power * Math.pow(1.4, e.count));
 
-  shopItems.forEach((e) => {
-    const nextPower = Math.round(e.power * Math.pow(1.4, e.count));
-
-    const shopTemplate = `
+      return `
     <li class="shop__item">
           <p class="shop__text">${e.desc} [Ур. ${e.count}] (Следующая сила: +${nextPower})</p>
           <button
@@ -138,9 +137,10 @@ function renderShop() {
         </button>
     </li>
 `;
+    })
+    .join("");
 
-    shop.insertAdjacentHTML("beforeend", shopTemplate);
-  });
+  shop.innerHTML = shopHTML;
 }
 
 setInterval(() => {
@@ -173,22 +173,32 @@ shop.addEventListener("click", (e) => {
 
   if (game.money >= checkedId.cost) {
     game.money -= checkedId.cost;
-
-    if (checkedId.id === "buy-click") {
-      game.clickPower += gainedPower;
-    } else if (checkedId.id === "buy-autoclick") {
-      game.autoclicker += gainedPower;
-    }
-
-    checkedId.count += 1;
-    checkedId.cost = Math.round(checkedId.cost * 1.5);
-
-    console.log("Приобретено");
-
-    renderShop();
-    refreshUI();
-    saveGame();
   } else {
     console.log("Недостаточно средств");
+    return;
   }
+
+  const newShop = shopItems.map((item) => {
+    if (item.id === checkedId.id) {
+      return {
+        ...item,
+        count: item.count + 1,
+        cost: Math.round(item.cost * 1.5),
+      };
+    }
+
+    return item;
+  });
+
+  if (checkedId.id === "buy-click") {
+    game.clickPower += gainedPower;
+  } else if (checkedId.id === "buy-autoclick") {
+    game.autoclicker += gainedPower;
+  }
+
+  shopItems = newShop;
+
+  renderShop();
+  refreshUI();
+  saveGame();
 });
