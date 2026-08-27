@@ -15,14 +15,14 @@ export const game = getSaved || {
 export let shopItems = getSavedShop || [
   {
     id: "buy-click",
-    desc: "Прокачка клика (+1 мон/клик)",
+    desc: "Прокачка клика",
     cost: 15,
     power: 1,
     count: 0,
   },
   {
     id: "buy-autoclick",
-    desc: "Автокликер (+1 мон/сек)",
+    desc: "Автокликер",
     cost: 100,
     power: 1,
     count: 0,

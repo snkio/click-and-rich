@@ -43,7 +43,7 @@ menu.addEventListener("click", (e) => {
     game.clickPower = 1;
     game.autoclicker = 0;
 
-    shopItems = [
+    const newItems = [
       {
         id: "buy-click",
         desc: "Прокачка клика",
@@ -59,6 +59,8 @@ menu.addEventListener("click", (e) => {
         count: 0,
       },
     ];
+
+    updateShopItems(newItems);
 
     isGameStarted = true;
 
