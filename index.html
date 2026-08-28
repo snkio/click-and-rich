@@ -8,32 +8,42 @@
     <script src="js/main.js" type="module" defer></script>
   </head>
   <body>
+    <header class="header">
+      <div class="container header__container">
+        <h1 class="header__logo">Click and Rich</h1>
+        <nav class="header__nav">
+          <ul class="header__list">
+            <li>
+              <p class="header__elem">
+                За клик <br /><span id="tapCounter"></span>
+              </p>
+            </li>
+            <li>
+              <p class="header__elem">
+                Монет/сек <br /><span id="persecCounter"></span>
+              </p>
+            </li>
+          </ul>
+        </nav>
+        <a href="https://github.com/snkio">GitHub</a>
+      </div>
+    </header>
     <main>
-      <section class="main-menu">
-        <div class="container">
-          <h1>Click and Rich</h1>
-          <ul class="main-menu__list" id="menu"></ul>
-        </div>
-      </section>
-      <section class="gameplay hidden" id="play">
+      <section class="gameplay" id="play">
         <div class="container gameplay__container">
           <div class="gameplay__content">
-            <div class="gameplay__list">
-              <p class="gameplay__elem">
-                Прибыль за клик <span id="tapCounter"></span>
+            <div class="gameplay__info">
+              <p class="gameplay__text">
+                <span id="moneyCounter"></span>
               </p>
-              <p class="gameplay__elem">
-                Автокликер <span id="persecCounter"></span>
-              </p>
+              <div class="gameplay__shadow">
+                <button class="gameplay__coin" id="coin"></button>
+              </div>
             </div>
-            <p class="gameplay__text">
-              <span id="moneyCounter">0</span>
-            </p>
-            <button class="gameplay__coin" id="coin"></button>
           </div>
-          <div class="main-shop">
+          <aside class="main-shop">
             <ul class="main-shop__list" id="shop"></ul>
-          </div>
+          </aside>
         </div>
       </section>
     </main>
