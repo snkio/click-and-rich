@@ -23,7 +23,6 @@ coin.addEventListener("click", () => {
 });
 
 setInterval(() => {
-  if (!isGameStarted) return;
   earnPassive(game);
 
   refreshUI();
@@ -63,7 +62,7 @@ shop.addEventListener("click", (e) => {
 
   if (checkedId.type === "click") {
     game.clickPower += gainedPower;
-  } else if (checkedId.id === "buy-autoclick") {
+  } else {
     game.autoclicker += gainedPower;
   }
 

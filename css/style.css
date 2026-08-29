@@ -83,6 +83,7 @@ body {
 
 .gameplay__container {
   display: flex;
+  flex-wrap: wrap;
   min-height: 100vh;
   margin-inline: auto;
 }
