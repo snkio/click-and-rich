@@ -27,7 +27,7 @@ ul {
 
 body {
   background: var(--bg-main);
-  color: var(--color-main);
+  color: var(--text-main);
 }
 
 .container {
@@ -89,6 +89,9 @@ body {
 }
 
 .gameplay__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: white;
   flex: 1;
 }
@@ -105,6 +108,8 @@ body {
 
 .gameplay__text {
   font-size: 5rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
   font-family: "Rubik", sans-serif;
   font-weight: bold;
 }
@@ -142,4 +147,28 @@ body {
 
 .gameplay__coin:active {
   transform: scale(0.95);
+}
+
+.main-shop__list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.shop__item button {
+  min-width: 350px;
+}
+
+.shop__button {
+  position: relative;
+  display: flex;
+  padding: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shop__lvl {
+  position: absolute;
+  top: 0;
 }

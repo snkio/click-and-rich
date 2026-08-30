@@ -28,14 +28,11 @@ export function renderShop() {
 
       return `
     <li class="shop__item">
-      <button
-        class="shop__button"
-            data-id="${e.id}"
-          >
-          <p class="shop__text">${e.desc} [Ур. ${e.count}] (Следующая сила: +${nextPower})</p>
-          
-            <span>${e.cost}</span> 
-        </button>
+    <button class="shop__button" data-id="${e.id}">
+          <p class="shop__text">${e.desc} (&uarr; +${nextPower})</p>
+          <span class="shop__lvl">${e.count}</span>         
+          <span>${e.cost}</span> 
+      </button>
     </li>
 `;
     })
