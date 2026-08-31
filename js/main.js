@@ -2,7 +2,6 @@ import {
   saveGame,
   game,
   shopItems,
-  getSaved,
   updateShopItems,
   earnByClick,
   earnPassive,

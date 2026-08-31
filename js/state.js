@@ -11,7 +11,7 @@ export const game = getSaved || {
   totalMoney: 0,
   clickPower: 1,
   autoclicker: 0,
-  level: 1,
+  // level: 1,
 };
 
 export let shopItems = getSavedShop || [
