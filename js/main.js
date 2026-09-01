@@ -5,6 +5,8 @@ import {
   updateShopItems,
   earnByClick,
   earnPassive,
+  formulaLevel,
+  getNewLevel,
 } from "./state.js";
 import { refreshUI, renderShop } from "./render.js";
 
@@ -17,6 +19,7 @@ refreshUI();
 coin.addEventListener("click", () => {
   earnByClick(game);
 
+  getNewLevel(game);
   refreshUI();
   saveGame();
 });

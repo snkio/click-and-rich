@@ -11,7 +11,7 @@ export const game = getSaved || {
   totalMoney: 0,
   clickPower: 1,
   autoclicker: 0,
-  // level: 1,
+  level: 1,
 };
 
 export let shopItems = getSavedShop || [
@@ -59,4 +59,25 @@ export function earnByClick(gameObj) {
 export function earnPassive(gameObj) {
   gameObj.money += gameObj.autoclicker;
   gameObj.totalMoney += gameObj.autoclicker;
+}
+
+export function formulaLevel(level) {
+  const levelCost = 100;
+  const multiply = 0.5;
+
+  return Math.floor(levelCost * multiply * level);
+}
+
+export function getNewLevel(gameObj) {
+  // console.log("Вызвано", gameObj);
+  let getNewCost = formulaLevel(gameObj.level);
+
+  while (gameObj.totalMoney >= getNewCost) {
+    gameObj.level++;
+
+    getNewCost = formulaLevel(gameObj.level);
+    console.log(`${gameObj.level}!!!`);
+  }
+
+  return getNewCost;
 }
