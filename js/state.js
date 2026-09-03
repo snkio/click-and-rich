@@ -16,6 +16,7 @@ export const game = getSaved || {
 
 export let shopItems = getSavedShop || [
   {
+    PATH: "./icons/clicker.svg",
     id: "buy-click",
     desc: "Сила клика",
     cost: 15,
@@ -24,6 +25,7 @@ export let shopItems = getSavedShop || [
     type: "click",
   },
   {
+    PATH: "./icons/multiclick.svg",
     id: "buy-multiclick",
     desc: "Мульти-клик",
     cost: 200,
@@ -32,6 +34,7 @@ export let shopItems = getSavedShop || [
     type: "click",
   },
   {
+    PATH: "./icons/autoclicker.svg",
     id: "buy-autoclick",
     desc: "Автокликер",
     cost: 100,
@@ -39,6 +42,7 @@ export let shopItems = getSavedShop || [
     count: 0,
   },
   {
+    PATH: "./icons/deposit.svg",
     id: "buy-deposit",
     desc: "Вклад",
     cost: 300,
@@ -63,13 +67,13 @@ export function earnPassive(gameObj) {
 
 export function formulaLevel(level) {
   const levelCost = 100;
-  const multiply = 0.5;
+  const multiply = 1.5;
 
-  return Math.floor(levelCost * multiply * level);
+  return Math.floor(levelCost * multiply ** level);
 }
 
 export function getNewLevel(gameObj) {
-  // console.log("Вызвано", gameObj);
+  // console.log("[getNewLevel] вызван", gameObj);
   let getNewCost = formulaLevel(gameObj.level);
 
   while (gameObj.totalMoney >= getNewCost) {

@@ -175,6 +175,10 @@ body {
   flex-wrap: wrap;
 }
 
+.shop__item {
+  position: relative;
+}
+
 .shop__item button {
   min-width: 350px;
 }
@@ -188,7 +192,26 @@ body {
   gap: 0.5rem;
 }
 
-.shop__lvl {
+.shop__info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shop__popup.hidden {
+  display: none;
+}
+
+/* .shop__popup {
+  display: block;
   position: absolute;
   top: 0;
-}
+  left: -150px;
+  padding: 1rem;
+  color: red;
+  border: 1px solid red;
+} */
+
+/* .shop__price.hidden {
+  display: none;
+} */

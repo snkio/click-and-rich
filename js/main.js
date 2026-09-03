@@ -5,7 +5,6 @@ import {
   updateShopItems,
   earnByClick,
   earnPassive,
-  formulaLevel,
   getNewLevel,
 } from "./state.js";
 import { refreshUI, renderShop } from "./render.js";

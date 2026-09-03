@@ -28,11 +28,21 @@ export function renderShop() {
 
       return `
     <li class="shop__item">
-    <button class="shop__button" data-id="${e.id}">
-          <p class="shop__text">${e.desc} (&uarr; +${nextPower})</p>
-          <span class="shop__lvl">${e.count}</span>         
-          <span>${e.cost}</span> 
+      <button class="shop__button" data-id="${e.id}">
+          <div class="shop__info">
+            <img src="${e.PATH}" alt="" aria-hidden="true">
+            <p>${e.desc}</p>
+          </div>
+          <span class="shop__lvl">${e.count}</span>   
+          <span class="shop__price hidden">&dollar;${e.cost}</span>     
       </button>
+      <div class="shop__popup hidden">
+        <div class="shop__info">
+          <img src="${e.PATH}" alt="" aria-hidden="true">
+          <p>${e.desc}</p>
+        <div>
+        <span>&dollar;${e.cost}</span> 
+      </div>  
     </li>
 `;
     })
