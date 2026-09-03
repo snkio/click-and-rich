@@ -15,8 +15,6 @@ const coin = document.querySelector("#coin");
 renderShop();
 refreshUI();
 
-window.game = game;
-
 coin.addEventListener("click", () => {
   earnByClick(game);
 

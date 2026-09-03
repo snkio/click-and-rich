@@ -8,26 +8,13 @@ export function refreshUI() {
   tapCounter.textContent = `+${game.clickPower}`;
   persecCounter.textContent = `+${game.autoclicker}`;
   moneyCounter.textContent = clearNum(game.money);
-  const btn = document.querySelectorAll(".shop__item-btn");
-
-  btn.forEach((elem) => {
-    const getDataId = elem.dataset.id;
-    const getItemCost = shopItems.find((item) => item.id === getDataId);
-
-    if (getItemCost) {
-      const getSpan = elem.querySelector("span");
-      getSpan.textContent = getItemCost.cost;
-    }
-  });
 }
 
 function clearNum(x) {
   if (x < 1000000) {
-    console.log("Меньше");
     return "$" + x.toLocaleString("ru-RU");
-  } else if (x > 1000000) {
+  } else if (x >= 1000000) {
     let result = x / 1000000;
-    console.log("Больше");
     return "$" + result.toFixed(2) + "M";
   }
 }
