@@ -11,12 +11,15 @@ export function refreshUI() {
 }
 
 function clearNum(x) {
-  if (x < 1000000) {
-    return "$" + x.toLocaleString("ru-RU");
+  if (x >= 1000000000) {
+    let result = x / 1000000000;
+    return "$" + result.toFixed(2) + "B";
   } else if (x >= 1000000) {
     let result = x / 1000000;
     return "$" + result.toFixed(2) + "M";
   }
+
+  return "$" + x.toLocaleString("ru-RU");
 }
 
 export function renderShop() {
@@ -40,7 +43,7 @@ export function renderShop() {
           <img src="${e.PATH}" alt="" aria-hidden="true">
           <p>${e.desc}</p>
         <div>
-        <span>&dollar;${e.cost}</span> 
+        <span>${result}</span> 
       </div>  
     </li>
 `;

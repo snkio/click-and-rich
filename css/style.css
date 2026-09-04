@@ -39,7 +39,7 @@ body {
 }
 
 .container {
-  max-width: calc((1440px) + (1rem * 2));
+  max-width: calc((1200px) + (1rem * 2));
   padding-inline: 1rem;
   margin-inline: auto;
 }
@@ -55,6 +55,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .header__container a {
@@ -71,7 +72,7 @@ body {
   font-weight: normal;
 }
 
-.header__list {
+.header__info {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -99,8 +100,8 @@ body {
 }
 
 .gameplay__container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 400px;
   min-height: 100vh;
   margin-inline: auto;
 }
@@ -109,7 +110,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
   flex: 1;
 }
 
@@ -163,8 +163,9 @@ body {
 }
 
 .main-shop {
-  flex: 0 0 30%;
   margin-top: 2rem;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .main-shop__list {
@@ -179,15 +180,12 @@ body {
   position: relative;
 }
 
-.shop__item button {
-  min-width: 350px;
-}
-
 .shop__button {
   position: relative;
   display: flex;
   padding: 0.5rem;
   justify-content: space-between;
+  width: 100%;
   align-items: center;
   gap: 0.5rem;
 }
@@ -215,3 +213,14 @@ body {
 /* .shop__price.hidden {
   display: none;
 } */
+
+@media (max-width: 768px) {
+  .gameplay__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-shop {
+    overflow-y: visible;
+  }
+}
