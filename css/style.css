@@ -273,7 +273,7 @@ body {
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 576px) {
   .header__container {
     justify-content: center;
     gap: 1rem;
