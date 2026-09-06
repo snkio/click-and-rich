@@ -9,7 +9,7 @@
   --border-header: rgba(255, 255, 255, 0.1);
 
   --text-main: #fff;
-  --text-accent: green;
+  --text-accent: #78b960;
 }
 
 *,
@@ -97,7 +97,7 @@ body {
 }
 
 .header__elem:nth-child(2) {
-  color: #78b960;
+  color: var(--text-accent);
 }
 
 .header__elem span {
@@ -167,7 +167,7 @@ body {
 }
 
 .main-shop {
-  margin-top: 2rem;
+  padding-top: 5rem;
   max-height: 70vh;
   overflow-y: auto;
 }
@@ -185,7 +185,6 @@ body {
 }
 
 .shop__button {
-  position: relative;
   display: flex;
   padding: 1rem;
   justify-content: space-between;
@@ -217,8 +216,12 @@ body {
   font-size: 24px;
 }
 
-.shop__popup.hidden {
+.shop-popup.hidden {
   display: none;
+}
+
+.shop-popup.hidden:nth-child(0) {
+  display: flex;
 }
 
 .shop-info__price {
@@ -226,19 +229,18 @@ body {
   font-weight: bold;
 }
 
-/* .shop__popup {
-  display: block;
+.shop-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   position: absolute;
-  top: 0;
-  left: -150px;
-  padding: 1rem;
-  color: red;
-  border: 1px solid red;
-} */
-
-/* .shop__price.hidden {
-  display: none;
-} */
+  width: 100%;
+  background-color: black;
+  padding: 0.5rem;
+  bottom: 100%;
+  border: 1px solid var(--border-header);
+  border-radius: 5px;
+}
 
 @media (max-width: 768px) {
   .gameplay__container {
@@ -248,9 +250,5 @@ body {
 
   .main-shop {
     overflow-y: visible;
-  }
-
-  .shop__price.hidden {
-    display: block;
   }
 }

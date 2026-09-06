@@ -40,12 +40,9 @@ export function renderShop() {
           </div>
           <span class="shop__lvl">${e.count}</span>        
       </button>
-      <div class="shop__popup hidden">
-        <div class="shop__info">
-          <img src="${e.PATH}" alt="" aria-hidden="true">
-          <p>${e.desc}</p>
-        <div>
-        <span>${result}</span> 
+      <div class="shop-popup hidden">
+        <p class="shop-popup__desc">${e.effectDesc}<p>
+        <p class="shop-popup__new-power">Следующая дает: +${nextPower}</p>
       </div>  
     </li>
 `;
