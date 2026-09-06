@@ -63,25 +63,34 @@ body {
   flex-wrap: wrap;
 }
 
-.header__container a {
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: normal;
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+}
+
+.header__logo:hover,
+.header__link:hover {
+  opacity: 0.8;
+}
+
+.header__link {
   opacity: 1;
   transition: opacity 0.3s ease-out;
 }
 
-.header__container a:hover {
-  opacity: 0.8;
-}
-
-.header__logo {
-  font-size: 1.5rem;
-  font-weight: normal;
+.header__logo:active {
+  transform: scale(0.95);
 }
 
 .header__info {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+  max-width: 400px;
+  width: 100%;
 }
 
 .header__elem {
@@ -90,8 +99,10 @@ body {
   background: var(--bg-card);
   font-weight: 600;
   padding: 0.75rem 0.5rem;
-  min-width: 200px;
+  max-width: 200px;
+  width: 100%;
 }
+
 .header__elem:nth-child(1) {
   color: gold;
 }
@@ -125,8 +136,7 @@ body {
 
 .gameplay__text {
   font-size: 5rem;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
+  margin-block: 5rem;
   font-family: "Rubik", sans-serif;
   font-weight: bold;
 }
@@ -249,11 +259,27 @@ body {
     flex-direction: column;
   }
 
+  .gameplay__text {
+    font-size: 4rem;
+    margin-block: 3rem;
+  }
+
   .main-shop {
     overflow-y: visible;
   }
 
   .shop-popup {
     display: none !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .header__container {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .header__link {
+    display: none;
   }
 }
