@@ -73,3 +73,25 @@ shop.addEventListener("click", (e) => {
   refreshUI();
   saveGame();
 });
+
+shop.addEventListener("mouseover", (e) => {
+  const btn = e.target.closest(".shop__button");
+  if (!btn) return;
+
+  const findElem = btn.closest(".shop__item");
+
+  const getPopUp = findElem.querySelector(".shop-popup");
+  getPopUp.classList.remove("hidden");
+  console.log(findElem);
+});
+
+shop.addEventListener("mouseout", (e) => {
+  const btn = e.target.closest(".shop__button");
+  if (!btn) return;
+
+  const findElem = btn.closest(".shop__item");
+
+  const getPopUp = findElem.querySelector(".shop-popup");
+  getPopUp.classList.add("hidden");
+  console.log(findElem);
+});

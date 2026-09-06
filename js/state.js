@@ -19,6 +19,8 @@ export let shopItems = getSavedShop || [
     PATH: "./icons/clicker.svg",
     id: "buy-click",
     desc: "Сила клика",
+    effectDesc:
+      "Увелечение эффетивности ручной генерации. Повышает мощность нажатия.",
     cost: 15,
     power: 1,
     count: 0,
@@ -28,6 +30,8 @@ export let shopItems = getSavedShop || [
     PATH: "./icons/multiclick.svg",
     id: "buy-multiclick",
     desc: "Мульти-клик",
+    effectDesc:
+      "Калибровка сенсора. Многократно увеличивает ценность каждого ручного нажатия.",
     cost: 200,
     power: 5,
     count: 0,
@@ -37,6 +41,7 @@ export let shopItems = getSavedShop || [
     PATH: "./icons/autoclicker.svg",
     id: "buy-autoclick",
     desc: "Автокликер",
+    effectDesc: "Автономия. Запускает фоновый майнинг валюты.",
     cost: 100,
     power: 1,
     count: 0,
@@ -45,6 +50,8 @@ export let shopItems = getSavedShop || [
     PATH: "./icons/deposit.svg",
     id: "buy-deposit",
     desc: "Вклад",
+    effectDesc:
+      "Капитализация активов. Закупает контракты для ускоренного майнинга.",
     cost: 300,
     power: 10,
     count: 0,
