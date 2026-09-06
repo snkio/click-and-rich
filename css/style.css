@@ -9,6 +9,7 @@
   --border-header: rgba(255, 255, 255, 0.1);
 
   --text-main: #fff;
+  --text-accent: green;
 }
 
 *,
@@ -25,6 +26,10 @@
 ul,
 li {
   list-style: none;
+}
+
+button {
+  font-family: inherit;
 }
 
 a {
@@ -189,19 +194,36 @@ body {
   gap: 0.5rem;
 }
 
-.shop__info {
+.shop-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.shop__info img {
+.shop-info__img {
   filter: brightness(0);
   height: 32px;
 }
 
+.shop-info__text {
+  text-align: start;
+}
+
+.shop-info__desc {
+  font-size: 18px;
+}
+
+.shop__lvl {
+  font-size: 24px;
+}
+
 .shop__popup.hidden {
   display: none;
+}
+
+.shop-info__price {
+  color: var(--text-accent);
+  font-weight: bold;
 }
 
 /* .shop__popup {
@@ -214,9 +236,9 @@ body {
   border: 1px solid red;
 } */
 
-.shop__price.hidden {
+/* .shop__price.hidden {
   display: none;
-}
+} */
 
 @media (max-width: 768px) {
   .gameplay__container {

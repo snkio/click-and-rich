@@ -31,12 +31,14 @@ export function renderShop() {
       return `
     <li class="shop__item">
       <button class="shop__button" data-id="${e.id}">
-          <div class="shop__info">
-            <img src="${e.PATH}" alt="" aria-hidden="true">
-            <p>${e.desc}</p>
+          <div class="shop-info">
+            <img src="${e.PATH}" alt="" aria-hidden="true" class="shop-info__img">
+            <div class="shop-info__text">
+              <p class="shop-info__desc">${e.desc}</p>
+              <span class="shop-info__price">${result}</span>
+            </div>
           </div>
-          <span class="shop__lvl">${e.count}</span>   
-          <span class="shop__price hidden">${result}</span>     
+          <span class="shop__lvl">${e.count}</span>        
       </button>
       <div class="shop__popup hidden">
         <div class="shop__info">
