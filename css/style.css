@@ -101,8 +101,7 @@ body {
 
 .gameplay__container {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  min-height: 100vh;
+  grid-template-columns: 1fr 300px;
   margin-inline: auto;
 }
 
@@ -183,7 +182,7 @@ body {
 .shop__button {
   position: relative;
   display: flex;
-  padding: 0.5rem;
+  padding: 1rem;
   justify-content: space-between;
   width: 100%;
   align-items: center;
@@ -194,6 +193,11 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.shop__info img {
+  filter: brightness(0);
+  height: 32px;
 }
 
 .shop__popup.hidden {
@@ -210,9 +214,9 @@ body {
   border: 1px solid red;
 } */
 
-/* .shop__price.hidden {
+.shop__price.hidden {
   display: none;
-} */
+}
 
 @media (max-width: 768px) {
   .gameplay__container {
@@ -222,5 +226,9 @@ body {
 
   .main-shop {
     overflow-y: visible;
+  }
+
+  .shop__price.hidden {
+    display: block;
   }
 }
