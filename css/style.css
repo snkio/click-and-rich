@@ -237,6 +237,7 @@ body {
   width: 100%;
   background-color: black;
   padding: 0.5rem;
+  left: 0;
   bottom: 100%;
   border: 1px solid var(--border-header);
   border-radius: 5px;
@@ -250,5 +251,9 @@ body {
 
   .main-shop {
     overflow-y: visible;
+  }
+
+  .shop-popup {
+    display: none !important;
   }
 }
